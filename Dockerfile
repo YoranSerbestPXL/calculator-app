@@ -1,9 +1,13 @@
-FROM node:14
+FROM node:18
+
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-COPY . .
+COPY package*.json /usr/src/app
 RUN npm install
 
-EXPOSE 8080
+COPY . /usr/src/app
+
+EXPOSE 5000
 
 CMD ["npm","start"]
