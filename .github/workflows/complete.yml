@@ -26,3 +26,6 @@ jobs:
           
       - name: test he code
         run: npm test
+
+      - name: Better Test Reports Action
+        uses: mridang/action-test-reporter@v1.7.0
