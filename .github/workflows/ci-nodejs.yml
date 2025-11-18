@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+  pull_request:
 
 jobs:
   node:
@@ -27,6 +28,12 @@ jobs:
         uses: mridang/action-test-reporter@v1.7.0
         with:
           coverage-file: coverage/lcov.info
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: coverage/
 
         
       
