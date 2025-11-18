@@ -49,4 +49,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ secrets.DOCKERUSERNAME }}/appPizza:latest
+          tags: ${{ secrets.DOCKERUSERNAME }}/apppizza:latest
