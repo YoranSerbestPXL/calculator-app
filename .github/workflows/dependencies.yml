@@ -17,6 +17,4 @@ jobs:
           node-version: '18'
       - name: build the code
         run: |
-          mkdir bundle
-          cp -r * bundle
-          zip -r app_bundle.zip bundle
+          zip -r app_bundle.zip . -x "*.git*" "app_bundle.zip"
