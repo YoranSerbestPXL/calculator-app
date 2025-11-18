@@ -1,0 +1,17 @@
+name: Checkout Example
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5.0.1
+
+      - name: List directory contents
+        run: ls -alhR
