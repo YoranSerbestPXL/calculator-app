@@ -35,5 +35,45 @@ jobs:
           name: test-results
           path: coverage/
 
+      - name: Discord Notification (SUCCESS - main push)
+        if: success() && github.event_name == 'push' && github.ref_name == 'main'
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            -d @- ${{ secrets.DISCORD_WEBHOOK }} <<EOF
+          {
+            "content": " CI SUCCESS on **main** branch for commit ${GITHUB_SHA}"
+          }
+          EOF
+
+      - name: Discord Notification (SUCCESS - PR)
+        if: success() && github.event_name == 'pull_request'
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            -d @- ${{ secrets.DISCORD_WEBHOOK }} <<EOF
+          {
+            "content": " Pull Request #${{ github.event.pull_request.number }} passed CI successfully!"
+          }
+          EOF
+
+      - name: Discord Notification (FAILURE - main)
+        if: failure() && github.event_name == 'push' && github.ref_name == 'main'
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            -d @- ${{ secrets.DISCORD_WEBHOOK }} <<EOF
+          {
+            "content": " CI FAILED on **main** branch for commit ${GITHUB_SHA}"
+          }
+          EOF
+
+      - name: Discord Notification (FAILURE - PR)
+        if: failure() && github.event_name == 'pull_request'
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+            -d @- ${{ secrets.DISCORD_WEBHOOK }} <<EOF
+          {
+            "content": " Pull Request #${{ github.event.pull_request.number }} failed CI checks!"
+          }
+          EOF
+
         
       
