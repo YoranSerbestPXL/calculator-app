@@ -1,0 +1,14 @@
+name: Dependecies Example
+on:
+  workflow_dispatch
+
+jobs:
+  dependecies-example:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v5.0.1
+      - run: sudo apt-get update && sudo apt-get install -y npm
+      - run: ls -alhR
+      
+    
