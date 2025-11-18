@@ -25,7 +25,7 @@ jobs:
           zip -r app_bundle.zip . -x "*.git*" "app_bundle.zip"
           
       - name: test he code
-        run: npm test
+        run: npm test -- --coverage
 
       - name: Better Test Reports Action
         uses: mridang/action-test-reporter@v1.7.0
