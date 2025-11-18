@@ -18,3 +18,7 @@ jobs:
       - name: build the code
         run: |
           zip -r app_bundle.zip . -x "*.git*" "app_bundle.zip"
+      - name: test he code
+        run: |
+          npm run build --if-present
+          npm test
