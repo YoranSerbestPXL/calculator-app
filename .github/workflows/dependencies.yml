@@ -1,4 +1,4 @@
-name: Dependencies Example
+name: Build Example
 
 on:
   workflow_dispatch:
@@ -21,3 +21,7 @@ jobs:
           node -v
           npm -v
           ls -alhR
+      - run: |
+          mkdir bundle
+          cp -r * bundle
+          zip -r app_bundle.zip bundle
