@@ -45,4 +45,4 @@ jobs:
         uses: docker/scout-action@v1
         with:
           command: cves
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/calculator-app:${{ steps.vars.outputs.tag }}
+          image: ${{ secrets.DOCKERUSERNAME }}/calculator-app:${{ steps.vars.outputs.tag }}
