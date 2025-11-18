@@ -1,0 +1,32 @@
+name: node.js
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  node:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5.0.1
+
+      - name: node install
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: install dependencies
+        run: npm install
+
+      - name: test
+        run: npm test -- --coverage
+
+      - name: report
+        uses: mridang/action-test-reporter@v1.7.0
+        with:
+          coverage-file: coverage/lcov.info
+
+        
+      
