@@ -1,0 +1,40 @@
+name: Production Deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Pull latest Docker image
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2IP }}
+          username: ubuntu
+          key: ${{ secrets.EC2SSH }}
+          script: |
+            docker pull ${DOCKERHUB_REPO}:${TAG}
+
+      - name: Stop running containers
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2IP }}
+          username: ubuntu
+          key: ${{ secrets.EC2SSH }}
+          script: |
+            docker stop calculator-app || true
+            docker rm calculator-app || true
+
+      - name: Run latest container on port 80
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2IP }}
+          username: ubuntu
+          key: ${{ secrets.EC2SSH }}
+          script: |
+            docker run -d --name calculator-app -p 80:80 ${DOCKERHUB_REPO}:${TAG}
